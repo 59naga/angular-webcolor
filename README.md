@@ -44,7 +44,7 @@ app.config(function(webcolors){
 })
 ```
 ## $webcolorLoadingBar
-Respected by [Angular Loading Bar](chieffancypants.github.io/angular-loading-bar).
+Respected by [Angular Loading Bar](http://chieffancypants.github.io/angular-loading-bar/).
 ### $webcolorLoadingBar.start()
 Append `<canvas>` to document.body
 ### $webcolorLoadingBar.complete()

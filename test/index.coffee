@@ -9,7 +9,7 @@ nwwin.on 'document-end',->
   y= padding #window.screen.height-nwwin.height
   nwwin.moveTo x,y
   
-  angularColor= require '../angular-webcolor'
+  angularColor= require '../angular-webcolor.min.js'
   angularColor window
   
   window.setTimeout ->

@@ -2,12 +2,6 @@
 (function() {
   var angularWebcolor;
 
-  setTimeout(function() {
-    if (typeof (typeof window !== "undefined" && window !== null ? window.angular : void 0) === 'object') {
-      return angularWebcolor(window);
-    }
-  });
-
   angularWebcolor = function(window) {
     var angular, document, module;
     document = window.document;
@@ -73,6 +67,12 @@
     });
   };
 
-  module.exports = angularWebcolor;
+  if (typeof (typeof window !== "undefined" && window !== null ? window.angular : void 0) === 'object') {
+    angularWebcolor(window);
+  }
+
+  if (typeof module !== "undefined" && module !== null) {
+    module.exports = angularWebcolor;
+  }
 
 }).call(this);

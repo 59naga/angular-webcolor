@@ -1,8 +1,8 @@
 {
   "name": "angular-webcolor",
-  "main": "angular-webcolor.js",
+  "main": "angular-webcolor.min.js",
   "description": "140 webcolor names and loading-animation",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "devDependencies": {
     "coffee-script": "^1.9.0",
     "gulp": "^3.8.11",
@@ -15,9 +15,11 @@
   "license": "MIT",
 
   "scripts": {
-    "start": "npm run pretest && gulp",
+    "start": "bower install && npm i && cd test && npm i && npm run pretest && gulp",
+
+    "setupTest": "cd test && npm i",
     "test": "nw test -nwj",
-    "pretest": "coffee -c angular-webcolor.coffee && uglifyjs angular-webcolor.js > angular-webcolor.min.js"
+    "pretest": "coffee -c angular-webcolor.coffee && uglifyjs angular-webcolor.js -o angular-webcolor.min.js  --source-map angular-webcolor.min.js.map"
   },
 
   "repository": {

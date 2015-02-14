@@ -56,4 +56,4 @@ angularWebcolor= (window)->
 
 angularWebcolor window if typeof window?.angular is 'object'
 
-module.exports= angularWebcolor
+module.exports= angularWebcolor if module?

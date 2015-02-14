@@ -1,0 +1,16 @@
+{
+  "name": "angular-webcolor",
+  "main": "index.html",
+  "description": "This nw.js manifest file(Not npm)",
+
+  "devDependencies":{
+    "nw-jasmine": "0.0.3"
+  },
+
+  "inject-js-start": "node_modules/nw-jasmine/nw-jasmine.js",
+  "window": {
+    "transparent": false,
+    "toolbar": false,
+    "frame": false
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "angular-webcolor",
+  "main": "angular-webcolor.js",
+  "version": "0.0.1",
+  "authors": [
+    "59naga <i59naga@icloud.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "index.*",
+    "*.coffee"
+  ],
+  "dependencies": {
+    "angular": "~1.3.13"
+  }
+}

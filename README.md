@@ -17,12 +17,12 @@ webcolor nwwin.window
 <script>
   angular
   .module('myApp',['webcolor'])
-  .controller('myController',function($scope,$colorLoadingBar,$timeout){
+  .controller('myController',function($scope,$webcolorLoadingBar,$timeout){
     $scope.message= 'loading...'
 
-    $colorLoadingBar.start();
+    $webcolorLoadingBar.start();
     $timeout(function(){
-      $colorLoadingBar.complete();
+      $webcolorLoadingBar.complete();
       $scope.message= ''
     },1000);
   });
@@ -43,11 +43,11 @@ app.config(function(webcolors){
   console.log(webcolors.join(',')); // aliceblue,antiquewhite,aqua...
 })
 ```
-## $colorLoadingBar
+## $webcolorLoadingBar
 Respected by [Angular Loading Bar](chieffancypants.github.io/angular-loading-bar).
-### $colorLoadingBar.start()
+### $webcolorLoadingBar.start()
 Append `<canvas>` to document.body
-### $colorLoadingBar.complete()
+### $webcolorLoadingBar.complete()
 Fast forward animation, After Remove `<canvas>` by document.body
 
 # License

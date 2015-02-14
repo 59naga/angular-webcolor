@@ -1,11 +1,8 @@
 {
   "name": "angular-webcolor",
   "main": "angular-webcolor.js",
-  "version": "0.0.1",
   "description": "140 webcolor names and loading-animation",
-
-  "author": "59naga",
-  "license": "MIT",
+  "version": "0.0.2",
   "devDependencies": {
     "coffee-script": "^1.9.0",
     "gulp": "^3.8.11",
@@ -14,9 +11,21 @@
     "uglify-js": "^2.4.16"
   },
 
+  "author": "59naga",
+  "license": "MIT",
+
   "scripts": {
     "start": "npm run pretest && gulp",
     "test": "nw test -nwj",
     "pretest": "coffee -c angular-webcolor.coffee && uglifyjs angular-webcolor.js > angular-webcolor.min.js"
-  }
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/59naga/angular-webcolor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/59naga/angular-webcolor/issues"
+  },
+  "homepage": "https://github.com/59naga/angular-webcolor"
 }

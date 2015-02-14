@@ -15,9 +15,15 @@ nwwin.on 'document-end',->
   window.setTimeout ->
     angular= window.angular
     
-    main= angular.module 'main',['webcolor']
+    main= angular.module 'main',['webcolor','ui.router']
+    main.config ($stateProvider)->
+      $stateProvider.state 'duplicated body element',
+        url:''
+        template:''
+        controller:->
+
     main.run ($webcolorLoadingBar)->
       $webcolorLoadingBar.start()
-      setTimeout (-> $webcolorLoadingBar.complete()),1000
+      setTimeout (-> $webcolorLoadingBar.complete()),2000
 
     angular.bootstrap window.document,['main']

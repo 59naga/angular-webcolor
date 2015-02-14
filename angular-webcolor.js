@@ -16,41 +16,55 @@
       };
     });
     return module.provider('$webcolorLoadingBar', function() {
-      var canvas, context, delay, i, opacity;
+      var canvas, context, delay, i, opacity, style;
       i = 0;
       delay = 0;
-      opacity = .7;
+      opacity = 1;
+      style = function() {
+        return ["opacity:" + opacity, 'position:absolute', 'top:0', 'left:0', 'right:0', 'bottom:0'].join(';');
+      };
       canvas = null;
       context = null;
       return {
         $get: function($webcolor) {
-          var nextTick;
-          nextTick = function() {
-            var contextX;
+          var nextPixel;
+          nextPixel = function(i) {
+            var bodies, contextX;
             contextX = i * canvas.height;
             context.fillStyle = $webcolor.getRandom();
-            return context.fillRect(contextX, 0, canvas.height, canvas.height);
+            context.fillRect(contextX, 0, canvas.height, canvas.height);
+            if (canvas.getAttribute('style') !== style()) {
+              canvas.setAttribute('style', style());
+            }
+            bodies = document.querySelectorAll('body');
+            if (bodies[0] !== canvas.parentNode) {
+              return bodies[0].appendChild(canvas);
+            }
           };
           return {
             start: function() {
               i = 0;
               delay = 100;
-              canvas = document.body.appendChild(document.createElement('canvas'));
-              canvas.setAttribute('style', ["opacity:" + opacity, 'position:absolute', 'top:0', 'left:0', 'right:0', 'bottom:0'].join(';'));
-              canvas.width = document.body.clientWidth;
-              canvas.height = document.body.clientWidth / 100;
+              canvas = document.createElement('canvas');
+              canvas.width = window.innerWidth;
+              canvas.height = window.innerWidth / 100;
               context = canvas.getContext('2d');
               window.postMessage('$webcolorLoadingBar:start', '*');
               window.requestAnimationFrame(function() {
                 return canvas.progress();
               });
               return canvas.progress = function() {
-                nextTick();
-                if (window.innerWidth <= (i * canvas.height)) {
+                nextPixel(i++);
+                if (delay === 0) {
+                  nextPixel(i++);
+                }
+                if (delay === 0) {
+                  opacity -= 0.025;
+                }
+                if (window.innerWidth < (i * canvas.height)) {
                   canvas.parentNode.removeChild(canvas);
                   return window.postMessage('$webcolorLoadingBar:finish', '*');
                 }
-                i++;
                 return window.requestAnimationFrame(function() {
                   return window.setTimeout(function() {
                     return canvas.progress();

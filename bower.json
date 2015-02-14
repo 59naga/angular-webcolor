@@ -2,9 +2,12 @@
   "name": "angular-webcolor",
   "main": "angular-webcolor.min.js",
   "description": "140 webcolor names and loading-animation",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
     "angular": "~1.3.13"
+  },
+  "devDependencies": {
+    "angular-ui-router": "~0.2.13"
   },
 
   "authors": [

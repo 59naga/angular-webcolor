@@ -9,42 +9,47 @@ angularWebcolor= (window)->
   module.provider '$webcolorLoadingBar',->
     i= 0
     delay= 0
-    opacity= .7
+    opacity= 1
+    style= -> [
+      "opacity:#{opacity}"
+      'position:absolute'
+      'top:0'
+      'left:0'
+      'right:0'
+      'bottom:0'
+    ].join(';')
     canvas= null
     context= null
 
     $get:($webcolor)->
-      nextTick= ->
+      nextPixel= (i)->
         contextX= i*canvas.height
         context.fillStyle= $webcolor.getRandom()
         context.fillRect contextX,0,canvas.height,canvas.height
+
+        canvas.setAttribute 'style',style() if canvas.getAttribute('style') isnt style() 
+        bodies= document.querySelectorAll 'body'
+        bodies[0].appendChild canvas if bodies[0] isnt canvas.parentNode
 
       start:->
         i= 0
         delay= 100
 
-        canvas= document.body.appendChild document.createElement 'canvas'
-        canvas.setAttribute 'style',[
-          "opacity:#{opacity}"
-          'position:absolute'
-          'top:0'
-          'left:0'
-          'right:0'
-          'bottom:0'
-        ].join ';'
-        canvas.width= document.body.clientWidth
-        canvas.height= document.body.clientWidth / 100
+        canvas= document.createElement 'canvas'
+        canvas.width= window.innerWidth
+        canvas.height= window.innerWidth / 100
 
         context= canvas.getContext '2d'
 
         window.postMessage '$webcolorLoadingBar:start','*'
         window.requestAnimationFrame -> canvas.progress()
         canvas.progress= ->
-          nextTick()
-          if window.innerWidth <= (i*canvas.height)
+          nextPixel i++
+          nextPixel i++ if delay is 0
+          opacity-= 0.025 if delay is 0
+          if window.innerWidth < (i*canvas.height)
             canvas.parentNode.removeChild canvas
             return window.postMessage '$webcolorLoadingBar:finish','*'
-          i++
 
           window.requestAnimationFrame ->
             window.setTimeout ->

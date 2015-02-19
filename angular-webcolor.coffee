@@ -46,10 +46,12 @@ angularWebcolor= (window)->
         canvas.progress= ->
           nextPixel i++
           nextPixel i++ if delay is 0
-          opacity-= 0.02 if delay is 0
+          nextPixel i++ if delay is 0
           if window.innerWidth < (i*canvas.height)
-            canvas.parentNode.removeChild canvas
-            return window.postMessage '$webcolorLoadingBar:finish','*'
+            opacity-= 0.025 if delay is 0
+            if opacity<=0
+              canvas.parentNode.removeChild canvas
+              return window.postMessage '$webcolorLoadingBar:finish','*'
 
           window.requestAnimationFrame ->
             window.setTimeout ->

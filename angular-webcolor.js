@@ -59,11 +59,16 @@
                   nextPixel(i++);
                 }
                 if (delay === 0) {
-                  opacity -= 0.02;
+                  nextPixel(i++);
                 }
                 if (window.innerWidth < (i * canvas.height)) {
-                  canvas.parentNode.removeChild(canvas);
-                  return window.postMessage('$webcolorLoadingBar:finish', '*');
+                  if (delay === 0) {
+                    opacity -= 0.025;
+                  }
+                  if (opacity <= 0) {
+                    canvas.parentNode.removeChild(canvas);
+                    return window.postMessage('$webcolorLoadingBar:finish', '*');
+                  }
                 }
                 return window.requestAnimationFrame(function() {
                   return window.setTimeout(function() {

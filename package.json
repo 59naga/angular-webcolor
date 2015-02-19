@@ -2,7 +2,7 @@
   "name": "angular-webcolor",
   "main": "angular-webcolor.min.js",
   "description": "140 webcolor names and loading-animation",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "devDependencies": {
     "coffee-script": "^1.9.0",
     "gulp": "^3.8.11",

@@ -1,6 +1,6 @@
 NWGUI= window.require 'nw.gui'
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL= 5000
+jasmine.DEFAULT_TIMEOUT_INTERVAL= 6000
 
 describe 'index',->
   window= null

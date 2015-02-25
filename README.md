@@ -1,14 +1,5 @@
 # Usage
 
-## for NW.js
-```coffee
-NWGUI= window.require 'nw.gui'
-nwwin= NWGUI.Window.get()
-
-webcolor= require 'angular-webcolor'
-webcolor nwwin.window
-```
-
 ## for Browser
 ```html
 <head>
@@ -31,6 +22,15 @@ webcolor nwwin.window
 <body ng-app="myApp">
   <div ng-controller="myController">{{message}}</div>
 </body>
+```
+
+## for NW.js
+```coffee
+NWGUI= window.require 'nw.gui'
+nwwin= NWGUI.Window.get()
+
+webcolor= require 'angular-webcolor'
+webcolor nwwin.window
 ```
 
 # API

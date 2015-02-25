@@ -62,5 +62,4 @@ angularWebcolor= (window)->
         delay= 0
 
 angularWebcolor window if typeof window?.angular is 'object'
-
 module.exports= angularWebcolor if module?

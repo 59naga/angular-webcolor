@@ -11,6 +11,7 @@
   "window": {
     "transparent": false,
     "toolbar": false,
-    "frame": false
+    "frame": false,
+    "show": true
   }
 }

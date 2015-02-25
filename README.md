@@ -25,12 +25,13 @@
 ```
 
 ## for NW.js
-```coffee
-NWGUI= window.require 'nw.gui'
-nwwin= NWGUI.Window.get()
+```js
+var NWGUI, nwwin, webcolor;
+NWGUI = window.require('nw.gui');
+nwwin = NWGUI.Window.get();
 
-webcolor= require 'angular-webcolor'
-webcolor nwwin.window
+webcolor = require('angular-webcolor');
+webcolor(nwwin.window);
 ```
 
 # API

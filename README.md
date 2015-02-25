@@ -1,5 +1,7 @@
 # Usage
 
+[DEMO](http://jsrun.it/59naga/angular-webcolor)
+
 ## for Browser
 ```html
 <head>

@@ -1,25 +1,24 @@
 {
   "name": "angular-webcolor",
   "main": "angular-webcolor.js",
+  "files": [
+    "angular-webolor.js"
+  ],
   "description": "pixel loading bar",
   "version": "0.0.7",
-
   "scripts": {
-    "start": "npm i && bower i && gulp",
-    "test": "nw test -nwj",
-    "pretest": "gulp build && cd test && npm i"
+    "start": "npm i && bower i && gulp"
   },
   "devDependencies": {
     "browserify": "^9.0.3",
     "coffee-script": "^1.9.0",
     "coffeeify": "^1.0.0",
     "gulp": "^3.8.11",
+    "gulp-protractor": "0.0.12",
     "gulp-util": "^3.0.3",
-    "nw": "^0.12.0-alpha3",
     "uglify-js": "^2.4.16",
     "vinyl-source-stream": "^1.0.0"
   },
-
   "author": "59naga",
   "license": "MIT",
   "repository": {

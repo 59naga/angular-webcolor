@@ -2,11 +2,15 @@
 
 [DEMO](http://jsrun.it/59naga/angular-webcolor)
 
-## for Browser
+## for Bower
+```bash
+$ bower i angular angular-webcolor
+```
+
 ```html
 <head>
 <script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-webcolor/angular-webcolor.min.js"></script>
+<script src="bower_components/angular-webcolor/angular-webcolor.js"></script>
 <script>
   angular
   .module('myApp',['webcolor'])
@@ -24,16 +28,6 @@
 <body ng-app="myApp">
   <div ng-controller="myController">{{message}}</div>
 </body>
-```
-
-## for NW.js
-```js
-var NWGUI, nwwin, webcolor;
-NWGUI = window.require('nw.gui');
-nwwin = NWGUI.Window.get();
-
-webcolor = require('angular-webcolor');
-webcolor(nwwin.window);
 ```
 
 # API

@@ -5,15 +5,19 @@
     "angular-webolor.js"
   ],
   "description": "pixel loading bar",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
-    "start": "npm i && bower i && gulp"
+    "start": "gulp watch",
+    "test": "gulp"
   },
   "devDependencies": {
     "browserify": "^9.0.3",
     "coffee-script": "^1.9.0",
     "coffeeify": "^1.0.0",
+    "glob": "^4.4.1",
     "gulp": "^3.8.11",
+    "gulp-bower": "0.0.10",
+    "gulp-connect": "^2.2.0",
     "gulp-protractor": "0.0.12",
     "gulp-util": "^3.0.3",
     "uglify-js": "^2.4.16",

@@ -35,6 +35,9 @@ serverOptions=
 protractorConfig=
   capabilities: 
     browserName: 'chrome'
+  # via http://c-note.chatwork.com/post/101826748775/an-introduction-to-simple-e2e-testing-with-travisci-sauc
+  sauceUser: process.env.SAUCE_USERNAME
+  sauceKey: process.env.SAUCE_ACCESS_KEY
   jasmineNodeOpts: 
     showColors: true
     isVerbose: true

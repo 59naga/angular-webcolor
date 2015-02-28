@@ -1,5 +1,4 @@
-# Usage
-
+# Usage [![Bower version][bower-image]][bower] [![Build Status][travis-image]][travis]
 [DEMO](http://jsrun.it/59naga/angular-webcolor)
 
 ## for Bower
@@ -49,3 +48,8 @@ Fast forward animation, After Remove `<canvas>` by document.body
 
 # License
 MIT by @59naga
+
+[bower-image]: https://badge.fury.io/bo/angular-webcolor.svg
+[bower]: http://badge.fury.io/bo/angular-webcolor
+[travis-image]: https://travis-ci.org/59naga/angular-webcolor.svg?branch=master
+[travis]: https://travis-ci.org/59naga/angular-webcolor

@@ -7,7 +7,7 @@ gulp.task 'test',['self_update','bower_update','webdriver_update'],->
   gulp.src specs
     .pipe protractor
       configFile: 'lib/gulpfile/test.coffee',
-      args: ['--baseUrl', "http://#{serverOptions.host}:#{serverOptions.port}/test/"]
+      args: ['--baseUrl', "http://localhost:#{serverOptions.port}/test/"]
     .on 'error',(message)->
       throw message
     .on 'end',->
@@ -29,7 +29,6 @@ specs=
   'test/**/*.coffee'
 serverOptions=
   root: 'test'
-  host: '127.0.0.1'
   port: 59798
 
 protractorConfig=

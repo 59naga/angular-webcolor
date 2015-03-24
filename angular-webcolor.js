@@ -60,9 +60,6 @@ angularWebcolor = function(window) {
             });
             return canvas.progress = (function(_this) {
               return function() {
-                if (notcanvas.parentNode != null) {
-                  return;
-                }
                 nextPixel(i++);
                 if (delay === 0) {
                   nextPixel(i++);

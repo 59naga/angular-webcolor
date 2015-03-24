@@ -49,8 +49,6 @@ angularWebcolor= (window)->
 
         window.requestAnimationFrame -> canvas.progress()
         canvas.progress= =>
-          return if notcanvas.parentNode?
-
           nextPixel i++
           nextPixel i++ if delay is 0
           nextPixel i++ if delay is 0

@@ -71,6 +71,7 @@ angularWebcolor = function(window) {
                     opacity -= 0.025;
                   }
                   if (opacity <= 0) {
+                    opacity = 0;
                     _this.busy = null;
                     canvas.parentNode.removeChild(canvas);
                     return window.postMessage('$webcolorLoadingBar:finish', '*');

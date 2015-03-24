@@ -53,6 +53,7 @@ angularWebcolor= (window)->
           if window.innerWidth < (i*canvas.height)
             opacity-= 0.025 if delay is 0
             if opacity<=0
+              opacity= 0
               @busy= null
               canvas.parentNode.removeChild canvas
               return window.postMessage '$webcolorLoadingBar:finish','*'

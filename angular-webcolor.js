@@ -15,7 +15,7 @@ angularWebcolor = function(window) {
     };
   });
   return module.provider('$webcolorLoadingBar', function() {
-    var canvas, context, delay, i, opacity, style;
+    var busy, canvas, context, delay, i, opacity, style;
     i = 0;
     delay = 0;
     opacity = 1;
@@ -24,6 +24,7 @@ angularWebcolor = function(window) {
     };
     canvas = null;
     context = null;
+    busy = null;
     return {
       $get: function($webcolor) {
         var nextPixel;
@@ -42,23 +43,26 @@ angularWebcolor = function(window) {
         };
         return {
           start: function() {
-            if (this.busy != null) {
+            if (busy != null) {
               return;
             }
-            this.busy = true;
+            busy = true;
             i = 0;
             delay = 100;
+            opacity = 1;
             canvas = document.createElement('canvas');
             canvas.className = 'webcolor';
             canvas.width = window.innerWidth;
             canvas.height = window.innerWidth / 100;
             context = canvas.getContext('2d');
-            window.postMessage('$webcolorLoadingBar:start', '*');
             window.requestAnimationFrame(function() {
               return canvas.progress();
             });
             return canvas.progress = (function(_this) {
               return function() {
+                if (notcanvas.parentNode != null) {
+                  return;
+                }
                 nextPixel(i++);
                 if (delay === 0) {
                   nextPixel(i++);
@@ -71,10 +75,9 @@ angularWebcolor = function(window) {
                     opacity -= 0.025;
                   }
                   if (opacity <= 0) {
-                    opacity = 0;
-                    _this.busy = null;
                     canvas.parentNode.removeChild(canvas);
-                    return window.postMessage('$webcolorLoadingBar:finish', '*');
+                    busy = null;
+                    return;
                   }
                 }
                 return window.requestAnimationFrame(function() {

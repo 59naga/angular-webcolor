@@ -18,6 +18,15 @@
       $timeout(function(){
         $webcolorLoadingBar.complete();
         $scope.message= 'done'
+
+        $timeout(function(){
+          $scope.message= 'reloading...'
+          $webcolorLoadingBar.start();
+          $timeout(function(){
+            $webcolorLoadingBar.complete();
+            $scope.message= 'done'
+          },1000);
+        },1500);
       },1000);
     });
   </script>

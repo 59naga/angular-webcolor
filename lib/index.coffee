@@ -20,6 +20,7 @@ angularWebcolor= (window)->
     ].join(';')
     canvas= null
     context= null
+    busy= null
 
     $get:($webcolor)->
       nextPixel= (i)->
@@ -32,10 +33,12 @@ angularWebcolor= (window)->
         bodies[0].appendChild canvas if bodies[0] isnt canvas.parentNode
 
       start:->
-        return if @busy?
-        @busy= yes
+        return if busy?
+        busy= yes
+
         i= 0
         delay= 100
+        opacity= 1
 
         canvas= document.createElement 'canvas'
         canvas.className= 'webcolor'
@@ -44,19 +47,20 @@ angularWebcolor= (window)->
 
         context= canvas.getContext '2d'
 
-        window.postMessage '$webcolorLoadingBar:start','*'
         window.requestAnimationFrame -> canvas.progress()
         canvas.progress= =>
+          return if notcanvas.parentNode?
+
           nextPixel i++
           nextPixel i++ if delay is 0
           nextPixel i++ if delay is 0
           if window.innerWidth < (i*canvas.height)
             opacity-= 0.025 if delay is 0
             if opacity<=0
-              opacity= 0
-              @busy= null
               canvas.parentNode.removeChild canvas
-              return window.postMessage '$webcolorLoadingBar:finish','*'
+
+              busy= null
+              return
 
           window.requestAnimationFrame ->
             window.setTimeout ->

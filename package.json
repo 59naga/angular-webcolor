@@ -5,7 +5,7 @@
     "angular-webolor.js"
   ],
   "description": "pixel loading bar",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "start": "gulp watch",
     "test": "gulp"

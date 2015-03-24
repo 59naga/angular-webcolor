@@ -42,9 +42,14 @@ angularWebcolor = function(window) {
         };
         return {
           start: function() {
+            if (this.busy != null) {
+              return;
+            }
+            this.busy = true;
             i = 0;
             delay = 100;
             canvas = document.createElement('canvas');
+            canvas.className = 'webcolor';
             canvas.width = window.innerWidth;
             canvas.height = window.innerWidth / 100;
             context = canvas.getContext('2d');
@@ -52,29 +57,32 @@ angularWebcolor = function(window) {
             window.requestAnimationFrame(function() {
               return canvas.progress();
             });
-            return canvas.progress = function() {
-              nextPixel(i++);
-              if (delay === 0) {
+            return canvas.progress = (function(_this) {
+              return function() {
                 nextPixel(i++);
-              }
-              if (delay === 0) {
-                nextPixel(i++);
-              }
-              if (window.innerWidth < (i * canvas.height)) {
                 if (delay === 0) {
-                  opacity -= 0.025;
+                  nextPixel(i++);
                 }
-                if (opacity <= 0) {
-                  canvas.parentNode.removeChild(canvas);
-                  return window.postMessage('$webcolorLoadingBar:finish', '*');
+                if (delay === 0) {
+                  nextPixel(i++);
                 }
-              }
-              return window.requestAnimationFrame(function() {
-                return window.setTimeout(function() {
-                  return canvas.progress();
-                }, delay);
-              });
-            };
+                if (window.innerWidth < (i * canvas.height)) {
+                  if (delay === 0) {
+                    opacity -= 0.025;
+                  }
+                  if (opacity <= 0) {
+                    _this.busy = null;
+                    canvas.parentNode.removeChild(canvas);
+                    return window.postMessage('$webcolorLoadingBar:finish', '*');
+                  }
+                }
+                return window.requestAnimationFrame(function() {
+                  return window.setTimeout(function() {
+                    return canvas.progress();
+                  }, delay);
+                });
+              };
+            })(this);
           },
           complete: function() {
             return delay = 0;

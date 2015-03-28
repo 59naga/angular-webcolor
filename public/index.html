@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>super loading bar</title>
+  <base href="/">
+  <script src="public/pkgs.js"></script>
+  <script src="public/angular-webcolor.js"></script>
+  <script>
+    angular
+    .module('myApp',['ui.router','webcolor'])
+    .config(function($locationProvider){
+      $locationProvider.html5Mode(true);
+    })
+    .config(function($stateProvider){
+      $stateProvider.state('first',{
+        url:'/public/',
+        templateProvider:function($timeout,$q){
+          var deferred= $q.defer();
+          $timeout(function(){
+            deferred.resolve('{{message}} <br><a ui-sref="second">second</a>');
+          },1000);
+          return deferred.promise;
+        },
+        controller:function($scope){
+          $scope.message= 'this is first'
+        },
+      });
+      $stateProvider.state('second',{
+        url:'/public/second',
+        template:'{{message}} <br><a ui-sref="first">first</a>',
+        controller:function($scope){
+          $scope.message= 'this is second'
+        },
+      });
+    })
+    .run(function($rootScope,$webcolorLoadingBar){
+      $rootScope.$on('$stateChangeStart',function(){
+        $webcolorLoadingBar.start();
+      });
+      $rootScope.$on('$stateChangeSuccess',function(){
+        $webcolorLoadingBar.complete();
+      });
+    })
+    ;
+  </script>
+</head>
+<body ui-view>loading...</body>
+</html>

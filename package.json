@@ -2,27 +2,28 @@
   "name": "angular-webcolor",
   "main": "angular-webcolor.js",
   "files": [
-    "angular-webolor.js"
+    "public/angular-webolor.js"
   ],
   "description": "pixel loading bar",
-  "version": "0.0.12",
+  "version": "0.0.13",
+
   "scripts": {
-    "start": "gulp watch",
-    "test": "gulp"
+    "preview": "coffee angular-webcolor.spec.coffee",
+    "build": "onefile angular angular-ui-router --output public/pkgs",
+    "start": "abigail *.coffee:test --execute",
+    "pretest": "coffee -o public -c angular-webcolor.coffee",
+    "test": "jasminetea . --e2e '==baseUrl http://localhost:59798/public/' --verbose --timeout 2000"
   },
   "devDependencies": {
+    "abigail": "0.0.7",
     "browserify": "^9.0.3",
     "coffee-script": "^1.9.0",
     "coffeeify": "^1.0.0",
-    "glob": "^4.4.1",
-    "gulp": "^3.8.11",
-    "gulp-bower": "0.0.10",
-    "gulp-connect": "^2.2.0",
-    "gulp-protractor": "0.0.12",
-    "gulp-util": "^3.0.3",
-    "uglify-js": "^2.4.16",
-    "vinyl-source-stream": "^1.0.0"
+    "express": "^4.12.3",
+    "jasminetea": "git://github.com/59naga/jasminetea",
+    "onefile": "^0.2.8"
   },
+  
   "author": "59naga",
   "license": "MIT",
   "repository": {

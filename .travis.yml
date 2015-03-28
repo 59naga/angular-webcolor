@@ -1,9 +1,13 @@
 language: node_js
 node_js:
   - '0.10'
-script: 'npm test'
-# before_script:
-#   - curl https://gist.githubusercontent.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash
+script:
+  - npm test
+after_success:
+  - git config --global user.email "builds@travis-ci.com"
+  - git config --global user.name "Travis CI"
+  - git tag v$(jqn package version)
+  - git push --tags
 addons:
   sauce_connect: true
 

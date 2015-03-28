@@ -47,7 +47,9 @@ Append `<canvas>` to document.body
 Fast forward animation, After Remove `<canvas>` by document.body
 
 # License
-MIT by @59naga
+[MIT][License] by @59naga
+
+[License]: http://59naga.mit-license.org/
 
 [bower-image]: https://badge.fury.io/bo/angular-webcolor.svg
 [bower]: http://badge.fury.io/bo/angular-webcolor

@@ -6,8 +6,8 @@ script:
 after_success:
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
-  - git remote rm origin
-  - git remote add origin git@github.com:59naga/$(jqn package name).git
+  - git config credential.helper "store --file=.git/credentials"
+  - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
   - git tag v$(jqn package version)
   - git push --tags
 addons:
@@ -17,3 +17,4 @@ env:
   global:
   - secure: H3bYbatZTYinsqRc7RUs9aHvJYVBYh4t9x8K3dkCngMo2ZZayPCBBQVVpbrdX2deEdi0ZvrF+PfUd/Stf7EqsMoYhVMAVfJXG526yEuGJ/93cmA79JYVmijHcUFkYNY1VtD7NFJIjSkbqtyfOGdh/ge0acJ9daBAGfi3suQWMDQ=
   - secure: G3ejGIM0RJqWkG6pb9b1/HqA6Xs8ySsUBt23ggK+IvatvVh4tdvc0K/fyc8lY12vN8772Jd+59HPl3+RMcQmWl4kKKqBsIx0EPhZKs2/aQsYwQgud/m1s0a8XATIil1cuH+7voEQnBKTOKCvRPmLlZOvx/xMZkQcUA+wg5grPcE=
+  - secure: dbju4D4y9+kni5Cw63p5g6GvscCcnPGSiNtaDX05rAZAa2yij1gOtLRS36rFQSgzBDJYc+yZ2lNM0hQbZOnNLOpuoBJf3w504P649dFWtcAGj824g2iuBjElX89b/u/xqANkzBgs5hHbZDQGAPt01IThXhM8EccUi2d9JBdt8S0=

@@ -9,9 +9,12 @@
 
   "scripts": {
     "preview": "coffee angular-webcolor.spec.coffee",
-    "build": "onefile angular angular-ui-router --output public/pkgs",
     "start": "abigail *.coffee:test --execute",
-    "pretest": "coffee -o public -c angular-webcolor.coffee",
+
+    "deps": "onefile angular angular-ui-router --output public/pkgs",
+    "build":"coffee -o public -c angular-webcolor.coffee",
+
+    "pretest": "npm run deps && npm run build",
     "test": "jasminetea . --e2e '==baseUrl http://localhost:59798/public/' --verbose --timeout 2000"
   },
   "devDependencies": {

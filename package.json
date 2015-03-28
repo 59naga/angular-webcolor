@@ -15,7 +15,7 @@
     "build":"coffee -o public -c angular-webcolor.coffee",
 
     "pretest": "npm run deps && npm run build",
-    "test": "jasminetea . --e2e '==baseUrl http://localhost:59798/public/' --verbose --timeout 2000"
+    "test": "jasminetea . --e2e '==baseUrl http://localhost:59798/public/' --verbose --timeout 5000"
   },
   "devDependencies": {
     "abigail": "0.0.7",

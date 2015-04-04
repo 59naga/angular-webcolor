@@ -1,6 +1,6 @@
 {
   "name": "angular-webcolor",
-  "main": "angular-webcolor.js",
+  "main": "public/angular-webcolor.js",
   "description": "pixel loading bar",
   "version": "0.0.13",
 

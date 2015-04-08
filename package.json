@@ -12,6 +12,8 @@
     "build": "coffee -p angular-webcolor.coffee | ng-annotate - --add > public/angular-webcolor.js",
     "postbuild": "uglifyjs public/angular-webcolor.js --compres --mangle --source-map public/angular-webcolor.min.js.map --source-map-url angular-webcolor.min.js.map --output public/angular-webcolor.min.js",
 
+    "update": "git tag v$(jqn bower version) &&  git push --tags",
+
     "pretest": "npm run deps && npm run build",
     "test": "jasminetea . --e2e '==baseUrl http://localhost:59798/public/' --verbose --timeout 10000"
   },

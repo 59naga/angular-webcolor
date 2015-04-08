@@ -2,7 +2,7 @@
   "name": "angular-webcolor",
   "main": "public/angular-webcolor.js",
   "description": "pixel loading bar",
-  "version": "0.0.13",
+  "version": "0.0.14",
 
   "devDependencies": {
     "angular": "~1.3.13",

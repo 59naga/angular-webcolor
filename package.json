@@ -1,12 +1,6 @@
 {
   "name": "angular-webcolor",
-  "main": "angular-webcolor.js",
-  "files": [
-    "public/angular-webolor.min.js",
-    "public/angular-webolor.min.js.map"
-  ],
   "description": "pixel loading bar",
-  "version": "0.0.13",
 
   "scripts": {
     "prepreview": "open http://localhost:59798/public/",

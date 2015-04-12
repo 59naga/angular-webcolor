@@ -1,4 +1,4 @@
-v0.0.14 / Apr 12 2015
+v0.0.16 / Apr 12 2015
 =========================
  * [`unknown`][2] :bug: Fix minus opacity for safari
 

@@ -57,8 +57,10 @@ class Progress
   # private
 
   getStyle: ->
+    opacity= @opacity
+    opacity= 0 if @opacity< 0
     [
-      "opacity:#{@opacity}"
+      "opacity:#{opacity}"
       'position:absolute'
       'top:0'
       'left:0'

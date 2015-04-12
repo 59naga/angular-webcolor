@@ -10,7 +10,7 @@
 
     "deps": "onefile angular angular-ui-router --output public/pkgs",
     "build": "coffee -p angular-webcolor.coffee | ng-annotate - --add > public/angular-webcolor.js",
-    "postbuild": "uglifyjs public/angular-webcolor.js --compres --mangle --source-map public/angular-webcolor.min.js.map --source-map-url angular-webcolor.min.js.map --output public/angular-webcolor.min.js",
+    "postbuild": "uglifyjs public/angular-webcolor.js --compres --mangle --source-map public/angular-webcolor.min.js.map --source-map-url angular-webcolor.min.js.map --prefix 1 --output public/angular-webcolor.min.js",
 
     "update": "git tag v$(jqn bower version) &&  git push --tags",
 

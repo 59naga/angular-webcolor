@@ -92,7 +92,9 @@
     };
 
     Progress.prototype.getStyle = function() {
-      return ["opacity:" + this.opacity, 'position:absolute', 'top:0', 'left:0', 'right:0', 'bottom:0'].join(';');
+      var opacity;
+      opacity = this.opacity;
+      return ["opacity:" + opacity, 'position:absolute', 'top:0', 'left:0', 'right:0', 'bottom:0'].join(';');
     };
 
     Progress.prototype.updateStyle = function() {

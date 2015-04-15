@@ -3,37 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>super loading bar</title>
-  <base href="/">
-  <script src="public/pkgs.js"></script>
-  <script src="public/angular-webcolor.min.js"></script>
+  <script src="pkgs.js"></script>
+  <script src="angular-webcolor.min.js"></script>
   <script>
     angular
     .module('myApp',['ui.router','webcolor'])
-    .config(function($locationProvider){
-      $locationProvider.html5Mode(true);
-    })
-    .config(function($stateProvider){
-      $stateProvider.state('first',{
-        url:'/public/',
-        templateProvider:function($timeout,$q){
-          var deferred= $q.defer();
-          $timeout(function(){
-            deferred.resolve('{{message}} <br><a ui-sref="second">second</a>');
-          },1000);
-          return deferred.promise;
-        },
-        controller:function($scope){
-          $scope.message= 'this is first'
-        },
-      });
-      $stateProvider.state('second',{
-        url:'/public/second',
-        template:'{{message}} <br><a ui-sref="first">first</a>',
-        controller:function($scope){
-          $scope.message= 'this is second'
-        },
-      });
-    })
     .run(function($rootScope,$webcolorLoadingBar){
       $rootScope.$on('$stateChangeStart',function(){
         $webcolorLoadingBar.start();
@@ -41,6 +15,46 @@
       $rootScope.$on('$stateChangeSuccess',function(){
         $webcolorLoadingBar.complete();
       });
+    })
+    .config(function($stateProvider){
+      $stateProvider.state('second',{
+        url:'second',
+        template:'{{message}} <br><a ui-sref="first">first</a>',
+        controller:function($scope){
+          $scope.message= 'this is second'
+        },
+      });
+      $stateProvider.state('first',{
+        url:'*path',
+        resolve:{
+          delay:function($timeout){
+            return $timeout(function(){return 0},1000)
+          },
+        },
+        template:'{{message}} <br><a ui-sref="second">second</a>',
+        controller:function($scope,delay){
+          $scope.message= 'this is first'
+        },
+      });
+    })
+    .config(function($webcolor){
+      // $webcolor.begin= 0;
+      $webcolor.begin= 1000;
+
+      // $webcolor.endIncrement= 1;
+      $webcolor.endIncrement= 3;
+
+      // $webcolor.endTranslucent= 0.0125;
+      $webcolor.endTranslucent= 0.02;
+
+      // $webcolor.lines= 1;
+      $webcolor.lines= 100;
+
+      // $webcolor.delay= 100;
+      $webcolor.delay= 50;
+
+      // $webcolor.opacity= .5;
+      $webcolor.opacity= 1;
     })
     ;
   </script>

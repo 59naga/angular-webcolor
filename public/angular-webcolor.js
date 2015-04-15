@@ -5,46 +5,77 @@
 
   module.constant('webcolors', ["aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige", "bisque", "black", "blanchedalmond", "blue", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson", "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite", "gold", "goldenrod", "gray", "green", "greenyellow", "honeydew", "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgreen", "lightgrey", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod", "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue", "purple", "red", "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell", "sienna", "silver", "skyblue", "slateblue", "slategray", "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen"]);
 
-  module.factory('$webcolor', ["webcolors", function(webcolors) {
-    return {
-      getRandom: function() {
-        return webcolors[~~(webcolors.length * Math.random())];
-      }
-    };
-  }]);
+  module.constant('$webcolor', {
+    delay: 100,
+    opacity: .5,
+    lines: 1,
+    begin: 0,
+    endIncrement: 2,
+    endTranslucent: 0.0125
+  });
 
-  module.provider('$webcolorLoadingBar', function() {
-    var progress;
-    progress = null;
+  module.provider('$webcolorLoadingBar', ["$webcolor", function($webcolor) {
+    var progresses;
+    progresses = [];
     return {
       $get: ["webcolors", function(webcolors) {
         return {
           start: function() {
-            if (progress != null) {
-              progress.stop();
+            var i, j, k, len, progress, ref, results;
+            if (progresses.length) {
+              for (j = 0, len = progresses.length; j < len; j++) {
+                progress = progresses[j];
+                progress.stop();
+              }
             }
-            return progress = new Progress(webcolors);
+            progresses = [];
+            results = [];
+            for (i = k = 0, ref = $webcolor.lines; 0 <= ref ? k < ref : k > ref; i = 0 <= ref ? ++k : --k) {
+              progress = new Progress(webcolors, {
+                i: i,
+                delay: $webcolor.delay,
+                opacity: $webcolor.opacity,
+                begin: Math.random() * $webcolor.begin,
+                endIncrement: $webcolor.endIncrement,
+                endTranslucent: $webcolor.endTranslucent
+              });
+              results.push(progresses.push(progress));
+            }
+            return results;
           },
           complete: function() {
-            return progress.hurry();
+            var j, len, progress, results;
+            results = [];
+            for (j = 0, len = progresses.length; j < len; j++) {
+              progress = progresses[j];
+              results.push(progress.hurry());
+            }
+            return results;
           }
         };
       }]
     };
-  });
+  }]);
 
   Progress = (function() {
-    function Progress(colors) {
+    function Progress(colors, options) {
       this.colors = colors;
+      this.options = options;
       this.i = 0;
-      this.delay = 100;
-      this.opacity = 1;
+      this.delay = this.options.delay;
+      this.opacity = this.options.opacity;
       this.canvas = document.createElement('canvas');
       this.canvas.className = 'webcolor';
       this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerWidth / 100;
+      this.canvas.height = Math.ceil(window.innerHeight / 100);
+      this.x = 0;
+      this.y = this.canvas.height * this.options.i;
       this.context = this.canvas.getContext('2d');
-      this.next();
+      setTimeout((function(_this) {
+        return function() {
+          return _this.next();
+        };
+      })(this), this.options.begin);
     }
 
     Progress.prototype.hurry = function() {
@@ -52,7 +83,7 @@
     };
 
     Progress.prototype.next = function() {
-      var fullfilled;
+      var fullfilled, i, j, ref;
       if (this.stopped) {
         return;
       }
@@ -62,25 +93,24 @@
           return this.stop();
         }
         if (this.delay === 0) {
-          this.opacity -= 0.025;
+          this.opacity -= this.options.endTranslucent;
         }
       } else {
-        this.nextPixel(this.i++);
+        this.nextPixel();
         if (this.delay === 0) {
-          this.nextPixel(this.i++);
-        }
-        if (this.delay === 0) {
-          this.nextPixel(this.i++);
+          for (i = j = 1, ref = this.options.endIncrement; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
+            this.nextPixel();
+          }
         }
       }
       this.updateStyle();
-      return requestAnimationFrame((function(_this) {
+      return setTimeout((function(_this) {
         return function() {
-          return setTimeout((function() {
+          return requestAnimationFrame(function() {
             return _this.next();
-          }), _this.delay);
+          });
         };
-      })(this));
+      })(this), this.delay);
     };
 
     Progress.prototype.stop = function() {
@@ -97,24 +127,27 @@
       if (this.opacity < 0) {
         opacity = 0;
       }
-      return ["opacity:" + opacity, 'position:absolute', 'top:0', 'left:0', 'right:0', 'bottom:0'].join(';');
+      return ["opacity:" + opacity, "position:fixed", "left:" + this.x + "px", "top:" + this.y + "px"].join(';');
     };
 
-    Progress.prototype.updateStyle = function() {
+    Progress.prototype.updateStyle = function(parentNode) {
+      if (parentNode == null) {
+        parentNode = 'html';
+      }
+      parentNode = document.querySelector(parentNode);
+      if (parentNode !== this.canvas.parentNode) {
+        parentNode.appendChild(this.canvas);
+      }
       if (this.canvas.getAttribute('style') !== this.getStyle()) {
         return this.canvas.setAttribute('style', this.getStyle());
       }
     };
 
     Progress.prototype.nextPixel = function() {
-      var bodies, contextX;
-      contextX = this.i * this.canvas.height;
+      var contextX;
+      contextX = this.i++ * this.canvas.height;
       this.context.fillStyle = this.colors[~~(this.colors.length * Math.random())];
-      this.context.fillRect(contextX, 0, this.canvas.height, this.canvas.height);
-      bodies = document.querySelectorAll('body');
-      if (bodies[0] !== this.canvas.parentNode) {
-        return bodies[0].appendChild(this.canvas);
-      }
+      return this.context.fillRect(contextX, 0, this.canvas.height, this.canvas.height);
     };
 
     return Progress;

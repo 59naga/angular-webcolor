@@ -1,32 +1,53 @@
-# Usage [![Bower version][bower-image]][bower] [![Build Status][travis-image]][travis]
+# ![angular-webcolor][.svg] Angular-webcolor [![Bower version][bower-image]][bower] [![Build Status][travis-image]][travis]
+
 [DEMO](http://jsrun.it/59naga/angular-webcolor)
+[DEMO2](http://jsdo.it/59naga/yHIb)
 
 ## for Bower
 ```bash
-$ bower i angular angular-webcolor
+$ bower i angular angular-webcolor angular-ui-router angular-webcolor
 ```
 
 ```html
 <head>
 <script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-webcolor/angular-webcolor.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-webcolor/angular-webcolor.min.js"></script>
 <script>
   angular
-  .module('myApp',['webcolor'])
-  .controller('myController',function($scope,$webcolorLoadingBar,$timeout){
-    $scope.message= 'loading...'
-
-    $webcolorLoadingBar.start();
-    $timeout(function(){
+  .module('myApp',['ui.router','webcolor'])
+  .config(function($stateProvider){
+    $stateProvider.state('second',{
+      url:'second',
+      template:'{{message}} <br><a ui-sref="first">first</a>',
+      controller:function($scope){
+        $scope.message= 'this is second'
+      },
+    });
+    $stateProvider.state('first',{
+      url:'*path',
+      resolve:{
+        delay:function($timeout){
+          return $timeout(function(){return 0},1000)
+        },
+      },
+      template:'{{message}} <br><a ui-sref="second">second</a>',
+      controller:function($scope,delay){
+        $scope.message= 'this is first'
+      },
+    });
+  })
+  .run(function($rootScope,$webcolorLoadingBar){
+    $rootScope.$on('$stateChangeStart',function(){
+      $webcolorLoadingBar.start();
+    });
+    $rootScope.$on('$stateChangeSuccess',function(){
       $webcolorLoadingBar.complete();
-      $scope.message= ''
-    },1000);
+    });
   });
 </script>
 </head>
-<body ng-app="myApp">
-  <div ng-controller="myController">{{message}}</div>
-</body>
+<body ui-view>loading...</body>
 ```
 
 # API
@@ -36,20 +57,53 @@ is angular.constant Array the **[140 webcolor names](http://www.w3schools.com/ht
 example:
 ```js
 app.config(function(webcolors){
-  console.log(webcolors.join(',')); // aliceblue,antiquewhite,aqua...
+  console.log(webcolors); // Array[140] "aliceblue","antiquewhite","aqua","...""
 })
 ```
 ## $webcolorLoadingBar
-Respected by [Angular Loading Bar](http://chieffancypants.github.io/angular-loading-bar/).
-### $webcolorLoadingBar.start()
-Append `<canvas>` to document.body
-### $webcolorLoadingBar.complete()
-Fast forward animation, After Remove `<canvas>` by document.body
+### .start()
+Begin render pixel loading bar.
+### .complete()
+Fast forward render.
+
+### Change $webcolorLoadingBar behavior
+```js
+angular
+.module('myApp',['ui.router','webcolor'])
+.config(function($webcolor){
+  $webcolor.delay= 50;// default 100
+  $webcolor.opacity= 1;// default .5
+
+  $webcolor.lines= 100;// default 1
+
+  $webcolor.begin= 1000;// default 0
+  $webcolor.endIncrement= 3;// default 2
+  $webcolor.endTranslucent= 0.02;// default 0.0125
+})
+```
+### $webcolor.delay
+(msec) Rendering speed of 1 pixel.
+
+### $webcolor.opacity
+(0~1) Set the initial opacity.
+
+### $webcolor.lines
+(0~100) Number of $webcolorLoadingBar
+
+### $webcolor.begin
+(msec) Set the maximum randam delay for begin render.
+
+### $webcolor.endIncrement
+(int) Rendering number of pixel for delay. after $webcolorLoadingBar.complete();
+### $webcolor.endTranslucent
+(float) Set transclunet per frame. after rendered.
 
 # License
 [MIT][License] by @59naga
 
 [License]: http://59naga.mit-license.org/
+
+[.svg]: https://cdn.rawgit.com/59naga/angular-webcolor/master/.svg?
 
 [bower-image]: https://badge.fury.io/bo/angular-webcolor.svg
 [bower]: http://badge.fury.io/bo/angular-webcolor

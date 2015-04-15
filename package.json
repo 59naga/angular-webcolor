@@ -7,6 +7,7 @@
     "preview": "coffee angular-webcolor.spec.coffee",
 
     "start": "abigail *.coffee:test --execute",
+    "watch": "abigail  public/*.min.js:'chrome-cli reload' *.coffee:build --execute --ignore",
 
     "deps": "onefile angular angular-ui-router --output public/pkgs",
     "build": "coffee -p angular-webcolor.coffee | ng-annotate - --add > public/angular-webcolor.js",

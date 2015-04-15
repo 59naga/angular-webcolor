@@ -62,7 +62,7 @@ app.config(function(webcolors){
 ```
 ## $webcolorLoadingBar
 ### .start()
-Begin render pixel loading bar.
+Begin render.
 ### .complete()
 Fast forward render.
 

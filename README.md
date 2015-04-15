@@ -9,45 +9,47 @@ $ bower install angular angular-ui-router angular-webcolor
 ```
 
 ```html
-<head>
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-<script src="bower_components/angular-webcolor/angular-webcolor.min.js"></script>
-<script>
-  angular
-  .module('myApp',['ui.router','webcolor'])
-  .config(function($stateProvider){
-    $stateProvider.state('second',{
-      url:'second',
-      template:'{{message}} <br><a ui-sref="first">first</a>',
-      controller:function($scope){
-        $scope.message= 'this is second'
-      },
-    });
-    $stateProvider.state('first',{
-      url:'*path',
-      resolve:{
-        delay:function($timeout){
-          return $timeout(function(){return 0},1000)
+<html ng-app="myApp">
+  <head>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="bower_components/angular-webcolor/public/angular-webcolor.min.js"></script>
+  <script>
+    angular
+    .module('myApp',['ui.router','webcolor'])
+    .config(function($stateProvider){
+      $stateProvider.state('second',{
+        url:'second',
+        template:'{{message}} <br><a ui-sref="first">first</a>',
+        controller:function($scope){
+          $scope.message= 'this is second'
         },
-      },
-      template:'{{message}} <br><a ui-sref="second">second</a>',
-      controller:function($scope,delay){
-        $scope.message= 'this is first'
-      },
+      });
+      $stateProvider.state('first',{
+        url:'*path',
+        resolve:{
+          delay:function($timeout){
+            return $timeout(function(){return 0},1000)
+          },
+        },
+        template:'{{message}} <br><a ui-sref="second">second</a>',
+        controller:function($scope,delay){
+          $scope.message= 'this is first'
+        },
+      });
+    })
+    .run(function($rootScope,$webcolorLoadingBar){
+      $rootScope.$on('$stateChangeStart',function(){
+        $webcolorLoadingBar.start();
+      });
+      $rootScope.$on('$stateChangeSuccess',function(){
+        $webcolorLoadingBar.complete();
+      });
     });
-  })
-  .run(function($rootScope,$webcolorLoadingBar){
-    $rootScope.$on('$stateChangeStart',function(){
-      $webcolorLoadingBar.start();
-    });
-    $rootScope.$on('$stateChangeSuccess',function(){
-      $webcolorLoadingBar.complete();
-    });
-  });
-</script>
-</head>
-<body ui-view>loading...</body>
+  </script>
+  </head>
+  <body ui-view>loading...</body>  
+</html>
 ```
 
 # API

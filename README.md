@@ -1,11 +1,11 @@
 # ![angular-webcolor][.svg] Angular-webcolor [![Bower version][bower-image]][bower] [![Build Status][travis-image]][travis]
 
-[DEMO](http://jsrun.it/59naga/angular-webcolor)
-[DEMO2](http://jsdo.it/59naga/yHIb)
+* [DEMO](http://jsrun.it/59naga/angular-webcolor)
+* [DEMO2](http://jsrun.it/59naga/yHIb)
 
-## for Bower
+## Installation
 ```bash
-$ bower i angular angular-webcolor angular-ui-router angular-webcolor
+$ bower install angular angular-ui-router angular-webcolor
 ```
 
 ```html

@@ -2,6 +2,8 @@
   "name": "angular-webcolor",
   "description": "pixel loading bar",
 
+  "private":true,
+
   "scripts": {
     "prepreview": "open http://localhost:59798/public/",
     "preview": "coffee angular-webcolor.spec.coffee",

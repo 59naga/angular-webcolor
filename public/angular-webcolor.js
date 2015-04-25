@@ -8,6 +8,7 @@
   module.constant('$webcolor', {
     delay: 100,
     opacity: .5,
+    zIndex: 1000,
     lines: 1,
     begin: 0,
     endIncrement: 2,
@@ -34,6 +35,7 @@
               progress = new Progress(webcolors, {
                 i: i,
                 delay: $webcolor.delay,
+                zIndex: $webcolor.zIndex,
                 opacity: $webcolor.opacity,
                 begin: Math.random() * $webcolor.begin,
                 endIncrement: $webcolor.endIncrement,
@@ -127,7 +129,7 @@
       if (this.opacity < 0) {
         opacity = 0;
       }
-      return ["opacity:" + opacity, "position:fixed", "left:" + this.x + "px", "top:" + this.y + "px"].join(';');
+      return ["z-index:" + (parseInt(this.options.zIndex)), "opacity:" + opacity, "position:fixed", "left:" + this.x + "px", "top:" + this.y + "px"].join(';');
     };
 
     Progress.prototype.updateStyle = function(parentNode) {

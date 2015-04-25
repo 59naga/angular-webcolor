@@ -76,6 +76,7 @@ angular
   $webcolor.delay= 50;// default 100
   $webcolor.opacity= 1;// default .5
 
+  $webcolor.zIndex= 50;// default 1000
   $webcolor.lines= 100;// default 1
 
   $webcolor.begin= 1000;// default 0
@@ -88,6 +89,9 @@ angular
 
 ### $webcolor.opacity
 (0~1) Set the initial opacity.
+
+### $webcolor.zIndex
+(0~) Set css z-index property for $webcolorLoadingBar.
 
 ### $webcolor.lines
 (0~100) Number of $webcolorLoadingBar

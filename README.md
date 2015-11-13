@@ -1,5 +1,7 @@
 # ![angular-webcolor][.svg] Angular-webcolor [![Bower version][bower-image]][bower] [![Build Status][travis-image]][travis]
 
+[![Join the chat at https://gitter.im/59naga/angular-webcolor](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/59naga/angular-webcolor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 * [DEMO](http://jsrun.it/59naga/angular-webcolor)
 * [DEMO2](http://jsrun.it/59naga/yHIb)
 
